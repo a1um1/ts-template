@@ -1,0 +1,23 @@
+name: Code quality
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Biome globally
+        run: npm install -g @biomejs/biome@beta
+
+      - name: Run Biome
+        run: biome check .
